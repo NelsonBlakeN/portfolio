@@ -179,6 +179,10 @@ export function run(rawInput) {
   // WASM path: delegate to Rust core, render JSON output
   if (wasmRun) {
     const output = wasmRun(rawInput)
+    // If the user explicitly passed --json, show the raw JSON string
+    if (rawInput.includes('--json')) {
+      return [<span className="t-dim">{output}</span>]
+    }
     return renderOutput(output)
   }
 

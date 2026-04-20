@@ -99,10 +99,12 @@ function renderContact({ links }) {
   ]
 }
 
-function renderVersion({ version }) {
+function renderVersion({ version, sha, built }) {
   return [
     <span>blake version <span className="t-green">{version}</span></span>,
-  ]
+    sha   ? <span><span className="t-dim">{'commit  '}</span>{sha}</span>   : null,
+    built ? <span><span className="t-dim">{'built   '}</span>{built}</span> : null,
+  ].filter(Boolean)
 }
 
 // ── Public API ─────────────────────────────────────────────────────────────────
