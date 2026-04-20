@@ -1,0 +1,14 @@
+[package]
+name = "blake"
+version = "1.0.0"
+edition = "2021"
+
+[[bin]]
+name = "blake"
+path = "src/main.rs"
+
+[dependencies]
+blake-core = { path = "../blake-core" }
+clap = { version = "4", features = ["derive"] }
+rustyline = "14"
+owo-colors = "4"

@@ -1,0 +1,7 @@
+# TODO(content-pass): Add more projects.
+
+[[projects]]
+name = "blake-portfolio"
+year = "2024"
+description = "CLI-first portfolio site. Rust core compiled to WASM, runs in the browser and as a native binary. React shell, GitHub Pages deploy."
+url = "https://github.com/NelsonBlakeN/portfolio"

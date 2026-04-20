@@ -1,0 +1,21 @@
+# TODO(content-pass): Replace with real work history.
+
+[[entries]]
+title = "Senior Software Engineer"
+company = "Company Name"
+location = "Location"
+start = "2022"
+end = "present"
+bullets = [
+  "Placeholder — fill in during content pass.",
+]
+
+[[entries]]
+title = "Software Engineer"
+company = "Company Name"
+location = "Location"
+start = "2019"
+end = "2022"
+bullets = [
+  "Placeholder — fill in during content pass.",
+]
