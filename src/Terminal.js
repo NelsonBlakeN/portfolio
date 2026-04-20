@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { run, COMMAND_NAMES } from './commands/index.js'
+import { run, COMMAND_NAMES, loadWasm } from './commands/index.js'
 import './styles/terminal.css'
 
 // ── Boot sequence definition ───────────────────────────────────────────────────
@@ -61,6 +61,9 @@ export default function Terminal({ onGuiMode }) {
       ...contents.map((c) => makeLine(c)),
     ])
   }, [])
+
+  // kick off WASM load in parallel with boot sequence
+  useEffect(() => { loadWasm() }, [])
 
   // boot sequence on mount
   useEffect(() => {

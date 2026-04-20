@@ -1,5 +1,16 @@
 use wasm_bindgen::prelude::*;
 
+// Bind browser console.log so Rust can write to it directly.
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(js_namespace = console, js_name = log)]
+    fn console_log(s: &str);
+}
+
+macro_rules! log {
+    ($($t:tt)*) => (console_log(&format!($($t)*)))
+}
+
 /// Run a blake command and return its output as a string.
 ///
 /// The browser always passes --json so React can render structured output.
@@ -13,7 +24,16 @@ pub fn run(input: &str) -> String {
         format!("{input} --json")
     };
 
+    log!("[blake-core] dispatching: {:?}", json_input);
+
     let result = blake_core::run(&json_input);
+
+    log!(
+        "[blake-core] exit_code={} clear={} output={}…",
+        result.exit_code,
+        result.clear_screen,
+        result.output.chars().take(80).collect::<String>()
+    );
 
     if result.clear_screen {
         return "__CLEAR__".to_string();

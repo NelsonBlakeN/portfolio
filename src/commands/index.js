@@ -162,9 +162,11 @@ import { renderOutput } from './renderers.js'
 let wasmRun = null
 
 export async function loadWasm() {
+  console.log('[blake] loading WASM module…')
   try {
     const m = await import('../../wasm-pkg/blake_wasm.js')
     wasmRun = m.run
+    console.log('[blake] WASM ready — commands now running in Rust')
   } catch (e) {
     console.warn('[blake] WASM failed to load, using JS fallback:', e)
   }
@@ -178,7 +180,9 @@ export function run(rawInput) {
 
   // WASM path: delegate to Rust core, render JSON output
   if (wasmRun) {
+    console.log(`[blake → rust] run(${JSON.stringify(rawInput)})`)
     const output = wasmRun(rawInput)
+    console.log(`[blake ← rust] ${output.slice(0, 120)}${output.length > 120 ? '…' : ''}`)
     // If the user explicitly passed --json, show the raw JSON string
     if (rawInput.includes('--json')) {
       return [<span className="t-dim">{output}</span>]
