@@ -1,0 +1,178 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background: #0c0c0c;
+  overflow: hidden;
+}
+
+body {
+  color: #cccccc;
+  font-family: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+#root {
+  height: 100%;
+}
+
+/* ── Layout ───────────────────────────────────────────── */
+
+.terminal-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px 24px 16px;
+  position: relative;
+  cursor: text;
+}
+
+.scrollback {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: #2a2a2a transparent;
+}
+
+.scrollback::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scrollback::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 3px;
+}
+
+/* ── Lines ────────────────────────────────────────────── */
+
+.line {
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-height: 1.6em;
+}
+
+.line-input {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.line-prompt {
+  color: #4af626;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* ── Input row ────────────────────────────────────────── */
+
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+
+.input-prompt {
+  color: #4af626;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.terminal-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #cccccc;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  flex: 1;
+  caret-color: #4af626;
+  min-width: 0;
+}
+
+/* ── Mode toggle ──────────────────────────────────────── */
+
+.mode-toggle {
+  position: fixed;
+  top: 14px;
+  right: 20px;
+  background: transparent;
+  border: 1px solid #333;
+  color: #555;
+  font-family: inherit;
+  font-size: 12px;
+  padding: 3px 10px;
+  cursor: pointer;
+  z-index: 100;
+  transition: border-color 0.15s, color 0.15s;
+  letter-spacing: 0.05em;
+}
+
+.mode-toggle:hover {
+  border-color: #666;
+  color: #aaa;
+}
+
+/* ── Text color helpers ───────────────────────────────── */
+
+.t-green  { color: #4af626; }
+.t-yellow { color: #e5c07b; }
+.t-cyan   { color: #56b6c2; }
+.t-red    { color: #e06c75; }
+.t-dim    { color: #555555; }
+.t-white  { color: #ffffff; }
+.t-bold   { font-weight: 700; }
+
+/* ── Links inside terminal output ────────────────────── */
+
+.term-link {
+  color: #56b6c2;
+  text-decoration: none;
+}
+
+.term-link:hover {
+  text-decoration: underline;
+}
+
+/* ── Boot sequence ────────────────────────────────────── */
+
+.boot-warn {
+  color: #555;
+}
+
+/* ── Command table layout ─────────────────────────────── */
+
+.cmd-table {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 16px;
+  row-gap: 2px;
+}
+
+.cmd-table .label {
+  color: #56b6c2;
+}
+
+.cmd-table .desc {
+  color: #888;
+}
+
+/* ── Section header ───────────────────────────────────── */
+
+.section-header {
+  color: #ffffff;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.section-entry {
+  padding-left: 2ch;
+}
