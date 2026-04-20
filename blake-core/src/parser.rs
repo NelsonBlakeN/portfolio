@@ -18,26 +18,16 @@ pub fn parse(input: &str) -> ParsedInput {
     if tokens[idx] == "blake" {
         idx += 1;
     }
-    if idx >= tokens.len() {
-        return parsed;
-    }
 
-    match tokens[idx] {
-        "--help" | "-h" => { parsed.help = true; return parsed; }
-        "--version" | "-V" => { parsed.version = true; return parsed; }
-        _ => {}
-    }
-
-    parsed.command = tokens[idx].to_string();
-    idx += 1;
-
-    while idx < tokens.len() {
-        match tokens[idx] {
+    // Single pass: collect flags anywhere, treat the first non-flag token as the command.
+    for token in &tokens[idx..] {
+        match *token {
             "--json"        => parsed.json = true,
             "--help" | "-h" => parsed.help = true,
-            other           => parsed.args.push(other.to_string()),
+            "--version" | "-V" => parsed.version = true,
+            t if parsed.command.is_empty() => parsed.command = t.to_string(),
+            t => parsed.args.push(t.to_string()),
         }
-        idx += 1;
     }
 
     parsed

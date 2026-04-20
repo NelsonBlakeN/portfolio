@@ -12,9 +12,13 @@ const BUILD_DATE = new Date().toISOString().split('T')[0];
 module.exports = {
   entry: './index.js',
   mode: 'development',
+  experiments: {
+    asyncWebAssembly: true,
+  },
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'index_bundle.js',
+    publicPath: 'auto',
   },
   target: 'web',
   devServer: {

@@ -155,21 +155,41 @@ export const COMMAND_NAMES = [
   'about', 'experience', 'projects', 'skills', 'contact', 'gui', 'clear', 'help',
 ]
 
+// ── WASM loader ────────────────────────────────────────────────────────────────
+
+import { renderOutput } from './renderers.js'
+
+let wasmRun = null
+
+export async function loadWasm() {
+  try {
+    const m = await import('../../wasm-pkg/blake_wasm.js')
+    wasmRun = m.run
+  } catch (e) {
+    console.warn('[blake] WASM failed to load, using JS fallback:', e)
+  }
+}
+
+// ── Dispatcher ─────────────────────────────────────────────────────────────────
+
 export function run(rawInput) {
   const tokens = rawInput.trim().split(/\s+/).filter(Boolean)
   if (!tokens.length) return []
 
+  // WASM path: delegate to Rust core, render JSON output
+  if (wasmRun) {
+    const output = wasmRun(rawInput)
+    return renderOutput(output)
+  }
+
+  // JS fallback (used while WASM loads)
   let idx = 0
   if (tokens[idx] === 'blake') idx++
-
   if (idx >= tokens.length) return helpOutput()
 
   const cmd = tokens[idx]
-
-  // flags
   if (cmd === '--help')    return helpOutput()
   if (cmd === '--version') return versionOutput()
-
   if (registry[cmd]) return registry[cmd].fn(tokens.slice(idx + 1))
 
   return [<span className="t-red">blake: command not found: {cmd}</span>]
