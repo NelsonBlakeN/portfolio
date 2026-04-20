@@ -229,7 +229,7 @@ export default function Terminal({ onGuiMode }) {
 
   return (
     <div className="terminal-wrapper" onClick={focusInput}>
-      <div className="scrollback">
+      <div className="scrollback" role="log" aria-live="polite" aria-label="Terminal output">
         {lines.map(({ id, content }) => (
           <div key={id} className="line">
             {content === '' || content == null ? '\u00A0' : content}

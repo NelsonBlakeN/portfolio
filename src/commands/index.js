@@ -1,5 +1,9 @@
 import React from 'react'
 
+const VERSION = '1.0.0'
+const GIT_SHA = process.env.GIT_SHA || 'dev'
+const BUILD_DATE = process.env.BUILD_DATE || 'local'
+
 // ── Styled span helpers ────────────────────────────────────────────────────────
 const G = ({ children }) => <span className="t-green">{children}</span>
 const Y = ({ children }) => <span className="t-yellow">{children}</span>
@@ -125,7 +129,10 @@ function contactOutput() {
 
 function versionOutput() {
   return [
-    <span>blake version <G>1.0.0</G></span>,
+    <span>blake version <G>{VERSION}</G></span>,
+    <span><D>commit </D> {GIT_SHA}</span>,
+    <span><D>built  </D> {BUILD_DATE}</span>,
+    <span><D>wasm   </D> <D>pending (Rust core not yet compiled)</D></span>,
   ]
 }
 

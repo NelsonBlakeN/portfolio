@@ -127,9 +127,20 @@ body {
 .t-yellow { color: #e5c07b; }
 .t-cyan   { color: #56b6c2; }
 .t-red    { color: #e06c75; }
-.t-dim    { color: #555555; }
+.t-dim    { color: #777777; } /* #555 fails WCAG AA; #777 = 5:1 on #0c0c0c */
 .t-white  { color: #ffffff; }
 .t-bold   { font-weight: 700; }
+
+/* ── Keyboard focus ───────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid #4af626;
+  outline-offset: 2px;
+}
+
+.terminal-input:focus-visible {
+  outline: none; /* caret is the focus indicator */
+}
 
 /* ── Links inside terminal output ────────────────────── */
 
@@ -145,7 +156,7 @@ body {
 /* ── Boot sequence ────────────────────────────────────── */
 
 .boot-warn {
-  color: #555;
+  color: #666; /* decorative dim, still >3:1 on #0c0c0c */
 }
 
 /* ── Command table layout ─────────────────────────────── */
