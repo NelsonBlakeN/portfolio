@@ -227,7 +227,7 @@ export default function Terminal({ onGuiMode }) {
   )
 
   const focusInput = () => {
-    if (!booting) inputRef.current?.focus()
+    if (!booting && !window.getSelection()?.toString()) inputRef.current?.focus()
   }
 
   return (
