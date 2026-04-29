@@ -142,6 +142,20 @@ Deferred work captured during planning. Each item includes motivation, tradeoffs
 
 ---
 
+### Mobile / responsive layout
+
+**What:** Make the site usable on a smartphone. At minimum: the terminal should fill the viewport, font size should be readable without zooming, the soft keyboard should open cleanly when the input is tapped, and scrollback should scroll without triggering browser chrome. The GUI card mode should reflow to a single column.
+
+**Why:** A non-trivial share of portfolio visitors will see the site on mobile, especially if it gets shared on social or in messages. A broken layout signals carelessness.
+
+**Cons:** A real terminal UX on mobile is inherently awkward — no tab completion, tiny keys, autocorrect interference. The goal is "functional and readable," not "great." The `[GUI]` toggle becomes more important as the preferred reading mode on mobile.
+
+**Context:** Autocorrect and autocapitalize are already disabled on the input element. Main work is CSS: viewport meta tag (if not already set), `vw`/`vh` units for the terminal wrapper, readable `font-size` at small breakpoints, and fixing any overflow issues that cause horizontal scroll. Test in Chrome DevTools mobile emulation + a real device.
+
+**Depends on:** v1 shipped.
+
+---
+
 ### Tab completion for flags
 
 **What:** In the browser, typing `blake projects --<Tab>` completes to `--featured`.
