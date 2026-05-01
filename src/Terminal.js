@@ -242,21 +242,34 @@ export default function Terminal({ onGuiMode }) {
       </div>
 
       {!booting && (
-        <div className="input-row">
-          <span className="input-prompt">$</span>
-          <input
-            ref={inputRef}
-            className="terminal-input"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            autoComplete="off"
-            autoCorrect="off"
-            autoCapitalize="off"
-            spellCheck={false}
-            aria-label="Terminal input"
-          />
-        </div>
+        <>
+          <div className="input-tip">
+            tip: prefer a visual layout? type{' '}
+            <button
+              type="button"
+              className="input-tip-action"
+              onClick={() => submitCommand('gui')}
+            >
+              gui
+            </button>
+            {' '}or press the [GUI] button in the corner
+          </div>
+          <div className="input-row">
+            <span className="input-prompt">$</span>
+            <input
+              ref={inputRef}
+              className="terminal-input"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck={false}
+              aria-label="Terminal input"
+            />
+          </div>
+        </>
       )}
     </div>
   )

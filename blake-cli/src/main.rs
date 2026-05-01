@@ -64,6 +64,8 @@ fn repl() {
                 let result = run(trimmed);
                 if result.clear_screen {
                     print!("\x1B[2J\x1B[1;1H");
+                } else if result.output == "__GUI__" {
+                    println!("gui mode is only available in the browser");
                 } else if !result.output.is_empty() {
                     println!("{}", result.output);
                 }
