@@ -35,29 +35,41 @@ The boundary is a single function: `fn run(input: &str) -> RunResult`. Both the 
 
 ## Running locally
 
-**React dev server (browser terminal):**
+**Install the CLI (one command):**
 
 ```bash
-npm install
-npm start
+make install
+blake --help
 ```
 
-Opens at `http://localhost:3000`.
+This builds and installs the `blake` binary to `~/.cargo/bin` via `cargo install`. Requires Rust — install from [rustup.rs](https://rustup.rs) if needed.
 
-> Before starting, make sure the WASM package is built (see below). If `wasm-pkg/` is missing, commands will fall back to the JS handlers during the ~100ms WASM load window, and then switch to Rust automatically.
-
-**Native CLI:**
+Other useful targets:
 
 ```bash
-# run without installing
+make build    # compile release binary without installing (target/release/blake)
+make wasm     # build the WASM package for the React frontend
+make dev      # start the local dev server at http://localhost:3000
+make bundle   # full production build (WASM + React)
+make deploy   # build and push to GitHub Pages
+make clean    # remove build artifacts
+```
+
+**React dev server:**
+
+```bash
+make wasm     # build WASM first
+make dev      # then start the dev server
+```
+
+Opens at `http://localhost:3000`. If `wasm-pkg/` is missing, commands fall back to the JS handlers for the ~100ms WASM load window and then switch to Rust automatically.
+
+**Native CLI without installing:**
+
+```bash
 cargo run -p blake -- --help
 cargo run -p blake -- about
 cargo run -p blake            # interactive REPL (rustyline, history, tab completion)
-
-# or install globally
-cargo install --path blake-cli
-blake --help
-blake contact
 ```
 
 ## Building
@@ -129,19 +141,19 @@ Edit the TOML files and rebuild. `cargo build` reruns automatically when any con
 
 ## Installing the CLI standalone
 
-If you just want the `blake` CLI without the website:
-
-```bash
-cargo install --git https://github.com/NelsonBlakeN/portfolio blake-cli
-blake --help
-```
-
-Or clone and install from source:
+Clone and run one command:
 
 ```bash
 git clone https://github.com/NelsonBlakeN/portfolio
 cd portfolio
-cargo install --path blake-cli
+make install
+blake --help
+```
+
+Or install without cloning:
+
+```bash
+cargo install --git https://github.com/NelsonBlakeN/portfolio blake-cli
 ```
 
 Requires Rust 1.70+. No other dependencies. Works on macOS, Linux, and Windows.
