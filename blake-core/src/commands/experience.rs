@@ -2,6 +2,8 @@ use crate::{content, parser::ParsedInput};
 use owo_colors::OwoColorize;
 use serde_json::json;
 
+const WRAP_WIDTH: usize = 78;
+
 pub fn render(parsed: &ParsedInput) -> String {
     let exp = content::experience();
 
@@ -27,8 +29,45 @@ pub fn render(parsed: &ParsedInput) -> String {
         ));
         out.push_str(&format!("  {}\n", entry.company.dimmed()));
         for bullet in &entry.bullets {
-            out.push_str(&format!("  {}\n", bullet));
+            out.push_str(&wrap_bullet(bullet, "  • ", "    ", WRAP_WIDTH));
+            out.push('\n');
         }
+    }
+    out
+}
+
+/// Wraps `text` with a hanging indent so wrapped lines align under the bullet
+/// content, not at column 0.
+fn wrap_bullet(text: &str, first_prefix: &str, cont_prefix: &str, width: usize) -> String {
+    let mut out = String::new();
+    let mut line = String::new();
+    let mut is_first_line = true;
+
+    for word in text.split_whitespace() {
+        let prefix_len = if is_first_line { first_prefix.len() } else { cont_prefix.len() };
+        let projected = if line.is_empty() {
+            prefix_len + word.len()
+        } else {
+            prefix_len + line.len() + 1 + word.len()
+        };
+
+        if !line.is_empty() && projected > width {
+            out.push_str(if is_first_line { first_prefix } else { cont_prefix });
+            out.push_str(&line);
+            out.push('\n');
+            line.clear();
+            is_first_line = false;
+        }
+
+        if !line.is_empty() {
+            line.push(' ');
+        }
+        line.push_str(word);
+    }
+
+    if !line.is_empty() {
+        out.push_str(if is_first_line { first_prefix } else { cont_prefix });
+        out.push_str(&line);
     }
     out
 }

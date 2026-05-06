@@ -47,13 +47,18 @@ function renderExperience({ entries }) {
     )
     lines.push(<span>{'  '}<span className="t-dim">{e.company}</span></span>)
     for (const b of e.bullets) {
-      lines.push(<span>{'  '}{b}</span>)
+      lines.push(
+        <span className="bullet-row">
+          <span className="bullet-marker">•</span>
+          <span className="bullet-text">{b}</span>
+        </span>
+      )
     }
   }
   return lines
 }
 
-function renderProjects({ projects }) {
+function renderProjects({ projects, note }) {
   const lines = [<span className="t-white t-bold">Projects</span>]
   for (const p of projects) {
     lines.push('')
@@ -70,11 +75,15 @@ function renderProjects({ projects }) {
       )
     }
   }
+  if (note) {
+    lines.push('')
+    lines.push(<span className="t-dim">{'  '}{note}</span>)
+  }
   return lines
 }
 
-function renderSkills({ categories }) {
-  return [
+function renderSkills({ categories, note }) {
+  const lines = [
     <span className="t-white t-bold">Skills</span>,
     '',
     ...categories.map(({ name, skills }) => (
@@ -84,6 +93,11 @@ function renderSkills({ categories }) {
       </span>
     )),
   ]
+  if (note) {
+    lines.push('')
+    lines.push(<span className="t-dim">{'  '}{note}</span>)
+  }
+  return lines
 }
 
 function renderContact({ links }) {

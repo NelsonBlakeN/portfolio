@@ -44,6 +44,7 @@ pub struct Project {
 #[derive(Deserialize, Debug, Clone)]
 pub struct Projects {
     pub projects: Vec<Project>,
+    pub note: Option<String>,
 }
 
 #[derive(Deserialize, Debug, Clone)]
@@ -55,6 +56,7 @@ pub struct SkillCategory {
 #[derive(Deserialize, Debug, Clone)]
 pub struct Skills {
     pub categories: Vec<SkillCategory>,
+    pub note: Option<String>,
 }
 
 #[derive(Deserialize, Debug, Clone)]

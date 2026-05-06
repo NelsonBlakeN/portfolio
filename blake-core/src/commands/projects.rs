@@ -12,7 +12,7 @@ pub fn render(parsed: &ParsedInput) -> String {
             "description": proj.description,
             "url": proj.url,
         })).collect();
-        return json!({ "type": "projects", "projects": projects }).to_string();
+        return json!({ "type": "projects", "projects": projects, "note": p.note }).to_string();
     }
 
     let mut out = String::new();
@@ -24,6 +24,10 @@ pub fn render(parsed: &ParsedInput) -> String {
         if let Some(url) = &proj.url {
             out.push_str(&format!("  {}\n", url.cyan()));
         }
+    }
+    if let Some(note) = &p.note {
+        out.push('\n');
+        out.push_str(&format!("  {}\n", note.dimmed()));
     }
     out
 }

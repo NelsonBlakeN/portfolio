@@ -219,3 +219,23 @@ body {
 .section-entry {
   padding-left: 2ch;
 }
+
+/* ── Bulleted lists (experience, etc.) ─────────────────── */
+
+.bullet-row {
+  display: flex;
+  gap: 1ch;
+  padding-left: 2ch;
+  max-width: 90ch;
+}
+
+.bullet-marker {
+  color: #4af626;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.bullet-text {
+  flex: 1;
+  min-width: 0;
+}

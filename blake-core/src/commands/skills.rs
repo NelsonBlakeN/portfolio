@@ -10,18 +10,24 @@ pub fn render(parsed: &ParsedInput) -> String {
             "name": c.name,
             "skills": c.skills,
         })).collect();
-        return json!({ "type": "skills", "categories": categories }).to_string();
+        return json!({ "type": "skills", "categories": categories, "note": s.note }).to_string();
     }
 
     let mut out = String::new();
     out.push_str(&format!("{}\n", "Skills".bold().white()));
-    out.push('\n');
+    if !s.categories.is_empty() {
+        out.push('\n');
+    }
     for cat in &s.categories {
         out.push_str(&format!(
             "  {:<12}  {}\n",
             cat.name.cyan(),
             cat.skills.join(", ")
         ));
+    }
+    if let Some(note) = &s.note {
+        out.push('\n');
+        out.push_str(&format!("  {}\n", note.dimmed()));
     }
     out
 }
