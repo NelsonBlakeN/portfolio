@@ -1,0 +1,8 @@
+name = "Blake Nelson"
+title = "Software Engineer"
+bio = [
+  "I build software that solves real problems and is a pleasure to use.",
+  "Currently interested in systems programming, developer tooling, and the",
+  "kind of UX that makes technical things feel effortless.",
+]
+github = "https://github.com/NelsonBlakeN"

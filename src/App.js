@@ -1,47 +1,64 @@
-import React from "react"
-import './App.css'
+import React, { useState } from 'react'
+import Terminal from './Terminal.js'
+import './styles/terminal.css'
 
-const links = [
-  {
-    link: "https://linkedin.com/in/blakenelson19",
-    text: "LinkedIn",
-  },
-  {
-    text: "GitHub",
-    link: "https://github.com/NelsonBlakeN",
-  },
-  {
-    text: "Pluralsight",
-    link: "https://app.pluralsight.com/profile/blake-nelson-30",
-  },
-  {
-    text: "LeetCode",
-    link: "https://leetcode.com/frostedblakes/",
-  },
-  {
-    text: "Contact",
-    link: "mailto:mail@blakenelson.me"
-  }
-]
+export default function App() {
+  const [mode, setMode] = useState('terminal')
 
-const App = () => {
   return (
-    <div className="App">
-      <h1>
-        Blake Nelson
-      </h1>
-      <h3>
-        Developer
-      </h3>
-      <div className="button-list">
-        {links.map(link => (
-          <a href={link.link} className="border-link">
-            {link.text}
-          </a>
-        ))}
-      </div>
-    </div>
+    <>
+      <button
+        className="mode-toggle"
+        onClick={() => setMode((m) => (m === 'terminal' ? 'gui' : 'terminal'))}
+        aria-label={mode === 'terminal' ? 'Switch to GUI mode' : 'Switch to CLI mode'}
+      >
+        {mode === 'terminal' ? '[GUI]' : '[CLI]'}
+      </button>
+
+      {mode === 'terminal' ? (
+        <Terminal onGuiMode={() => setMode('gui')} />
+      ) : (
+        <GuiMode onCliMode={() => setMode('terminal')} />
+      )}
+    </>
   )
 }
 
-export default App
+// Placeholder GUI mode — full card layout coming in next pass
+function GuiMode({ onCliMode }) {
+  return (
+    <div
+      style={{
+        fontFamily: "'Fira Code', 'Cascadia Code', 'JetBrains Mono', 'Courier New', monospace",
+        background: '#0c0c0c',
+        color: '#cccccc',
+        height: '100vh',
+        padding: '40px 24px',
+        fontSize: '14px',
+        lineHeight: '1.6',
+      }}
+    >
+      <p style={{ color: '#4af626', marginBottom: '16px' }}>
+        {'// GUI mode — coming soon'}
+      </p>
+      <p style={{ color: '#555' }}>
+        The clickable card interface is being built. Click{' '}
+        <button
+          onClick={onCliMode}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: '#56b6c2',
+            fontFamily: 'inherit',
+            fontSize: 'inherit',
+            cursor: 'pointer',
+            padding: 0,
+          }}
+        >
+          [CLI]
+        </button>{' '}
+        to go back to the terminal.
+      </p>
+    </div>
+  )
+}
