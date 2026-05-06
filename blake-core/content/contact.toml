@@ -12,13 +12,3 @@ display = "github.com/NelsonBlakeN"
 label = "LinkedIn"
 url = "https://linkedin.com/in/blakenelson19"
 display = "linkedin.com/in/blakenelson19"
-
-[[links]]
-label = "Pluralsight"
-url = "https://app.pluralsight.com/profile/blake-nelson-30"
-display = "pluralsight/blake-nelson-30"
-
-[[links]]
-label = "LeetCode"
-url = "https://leetcode.com/frostedblakes"
-display = "leetcode.com/frostedblakes"

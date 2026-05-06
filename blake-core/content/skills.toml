@@ -1,21 +1,2 @@
-# TODO(content-pass): Replace with real skill list.
-
-[[categories]]
-name = "Languages"
-skills = ["Rust", "JavaScript", "TypeScript", "Python", "Go"]
-
-[[categories]]
-name = "Frontend"
-skills = ["React", "webpack", "xterm.js", "CSS"]
-
-[[categories]]
-name = "Backend"
-skills = ["Node.js", "REST APIs", "SQL"]
-
-[[categories]]
-name = "Infra"
-skills = ["GitHub Actions", "Docker", "AWS"]
-
-[[categories]]
-name = "Tooling"
-skills = ["git", "vim", "wasm-pack", "cargo"]
+note = "Coming soon. See linkedin.com/in/blakenelson19 for full details."
+categories = []

@@ -1,21 +1,13 @@
-# TODO(content-pass): Replace with real work history.
-
 [[entries]]
-title = "Senior Software Engineer"
-company = "Company Name"
-location = "Location"
-start = "2022"
+title = "Software Engineer II"
+company = "Microsoft · Seattle, WA (Remote)"
+location = "Seattle, WA"
+start = "Jul 2019"
 end = "present"
 bullets = [
-  "Placeholder — fill in during content pass.",
-]
-
-[[entries]]
-title = "Software Engineer"
-company = "Company Name"
-location = "Location"
-start = "2019"
-end = "2022"
-bullets = [
-  "Placeholder — fill in during content pass.",
+  "Full-stack engineer on Microsoft Entra Identity Governance. Built frontend UI, REST APIs, and backend compute services for the Entitlement Management platform.",
+  "Drove a zero-downtime migration from relational SQL to a distributed NoSQL document store. Redesigned the schema, unwound cross-table dependencies, and reconstructed business-logic workflows to unlock enterprise-scale performance.",
+  "Led design and delivery of an accessible TypeScript and React data visualization system that tracks external user status in Azure AD. Used weekly by dozens of enterprise customers since launch.",
+  "Shipped the sponsor management experience for Azure AD external user profiles, partnering with designers and the API team. Backed by full Jest unit coverage and ARIA-compliant accessibility.",
+  "Site reliability for Azure Identity Governance. Debugged automated and customer-reported incidents, deployed live-site fixes, and partnered with customers on workarounds during outages.",
 ]
