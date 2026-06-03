@@ -1,0 +1,54 @@
+name: Update WASM dependency
+
+on:
+  schedule:
+    - cron: "0 3 * * *"   # 03:00 UTC nightly
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: read
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://npm.pkg.github.com
+          scope: "@nelsonblaken"
+
+      - name: Check for newer version
+        id: check
+        run: |
+          LATEST=$(npm view @nelsonblaken/blake-wasm version 2>/dev/null || echo "")
+          CURRENT=$(node -p "require('./package.json').dependencies['@nelsonblaken/blake-wasm']")
+          echo "latest=$LATEST" >> $GITHUB_OUTPUT
+          echo "current=$CURRENT" >> $GITHUB_OUTPUT
+          if [ "$LATEST" != "$CURRENT" ] && [ -n "$LATEST" ]; then
+            echo "needs_update=true" >> $GITHUB_OUTPUT
+          else
+            echo "needs_update=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install updated package
+        if: steps.check.outputs.needs_update == 'true'
+        run: npm install @nelsonblaken/blake-wasm@${{ steps.check.outputs.latest }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and push update
+        if: steps.check.outputs.needs_update == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json
+          git commit -m "chore: update blake-wasm to ${{ steps.check.outputs.latest }}"
+          git push origin main
