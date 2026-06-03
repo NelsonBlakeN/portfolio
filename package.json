@@ -1,5 +1,5 @@
 {
-  "name": "client-rendering-no-cra",
+  "name": "portfolio",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -26,6 +26,7 @@
     "webpack-dev-server": "^5.2.3"
   },
   "dependencies": {
+    "@nelsonblaken/blake-wasm": "1.0.0",
     "css-loader": "^6.8.1",
     "loader-utils": "^3.2.1",
     "react": "^18.2.0",

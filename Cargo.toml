@@ -1,3 +1,0 @@
-[workspace]
-members = ["blake-core", "blake-cli", "blake-wasm"]
-resolver = "2"

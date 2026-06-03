@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  packages: read
 
 jobs:
   deploy:
@@ -15,35 +16,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: wasm32-unknown-unknown
-
-      - name: Install wasm-pack
-        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-
-      - name: Cache Rust build artifacts
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: ${{ runner.os }}-cargo-
-
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          registry-url: https://npm.pkg.github.com
+          scope: "@nelsonblaken"
 
       - name: Install JS dependencies
         run: npm ci
-
-      - name: Build WASM package
-        run: make wasm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build React bundle
         run: npm run build

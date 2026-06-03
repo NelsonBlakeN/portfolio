@@ -164,7 +164,7 @@ let wasmRun = null
 export async function loadWasm() {
   console.log('[blake] loading WASM module…')
   try {
-    const m = await import('../../wasm-pkg/blake_wasm.js')
+    const m = await import('@nelsonblaken/blake-wasm')
     wasmRun = m.run
     console.log('[blake] WASM ready — commands now running in Rust')
   } catch (e) {
